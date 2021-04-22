@@ -1,0 +1,7 @@
+next-sample-app/node_modules
+next-sample-app/.next
+
+nest-sample-app/node_modules
+nest-sample-app/dist
+
+.DS_Store
