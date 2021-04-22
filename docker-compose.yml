@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./next-sample-app
+      dockerfile: Dockerfile
+    tty: true
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-server
+
+  api-server:
+    container_name: api-server
+    build:
+      context: ./nest-sample-app
+      dockerfile: Dockerfile
+    tty: true
+    restart: always
+    ports:
+      - "5000:5000"
+
+    depends_on:
+      - db-server
+  db-server:
+    container_name: db-server
+    image: mysql:5.7.29
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: nest_sample_app
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
